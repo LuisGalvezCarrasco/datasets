@@ -60,7 +60,8 @@ class Image:
     decode: bool = True
     id: Optional[str] = None
     # Automatically constructed
-    dtype: ClassVar[str] = "PIL.Image.Image"
+    #dtype: ClassVar[str] = "PIL.Image.Image"
+    dtype: ClassVar[str] = "np.ndarray" #Luis
     pa_type: ClassVar[Any] = pa.struct({"bytes": pa.binary(), "path": pa.string()})
     _type: str = field(default="Image", init=False, repr=False)
 
