@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, ClassVar, Dict, List, Optional, Union
 
 import numpy as np
 import pyarrow as pa
+import tifffile as tiff #luis
 
 from .. import config
 from ..download.streaming_download_manager import xopen
@@ -138,7 +139,8 @@ class Image:
                 raise ValueError(f"An image should have one of 'path' or 'bytes' but both are None in {value}.")
             else:
                 if is_local_path(path):
-                    image = PIL.Image.open(path)
+                    #image = PIL.Image.open(path)
+                    image = tiff(path) #tiff to np.array #luis () I add this)
                 else:
                     source_url = path.split("::")[-1]
                     try:
