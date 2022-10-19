@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from .features import FeatureType
 
 
-_IMAGE_COMPRESSION_FORMATS: Optional[List[str]] = "TIFF"  #luis
+_IMAGE_COMPRESSION_FORMATS: Optional[List[str]] = ["TIFF"]  #luis
 
 
 @dataclass
