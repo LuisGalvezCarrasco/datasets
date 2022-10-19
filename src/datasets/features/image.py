@@ -153,7 +153,7 @@ class Image:
                     image = PIL.Image.open(bytes_)
         else:
             image = PIL.Image.open(BytesIO(bytes_))
-        image.load()  # to avoid "Too many open files" errors #luis (comment for tiff)
+        #image.load()  # to avoid "Too many open files" errors #luis (comment for tiff)
         return image
 
     def flatten(self) -> Union["FeatureType", Dict[str, "FeatureType"]]:
