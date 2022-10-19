@@ -140,7 +140,7 @@ class Image:
             else:
                 if is_local_path(path):
                     #image = PIL.Image.open(path)
-                    image = tiff(path) #tiff to np.array #luis () I add this)
+                    image = tiff.imread(path) #tiff to np.array #luis () I add this)
                 else:
                     source_url = path.split("::")[-1]
                     try:
@@ -153,7 +153,7 @@ class Image:
                     image = PIL.Image.open(bytes_)
         else:
             image = PIL.Image.open(BytesIO(bytes_))
-        #image.load()  # to avoid "Too many open files" errors #luis (comment for tiff)
+        image.load()  # to avoid "Too many open files" errors #luis (comment for tiff)
         return image
 
     def flatten(self) -> Union["FeatureType", Dict[str, "FeatureType"]]:
