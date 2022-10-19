@@ -82,18 +82,18 @@ class Image:
         else:
             raise ImportError("To support encoding images, please install 'Pillow'.")
 
-        if isinstance(value, list):
+        if isinstance(value, list): #if value is type list -> TRUE
             value = np.array(value)
 
         if isinstance(value, str):
             return {"path": value, "bytes": None}
-        elif isinstance(value, np.ndarray):
+        elif isinstance(value, np.ndarray): # :( if the value is a numpy array 
             # convert the image array to png bytes
-            image = PIL.Image.fromarray(value.astype(np.uint8))
+            image = PIL.Image.fromarray(value.astype(np.float64),mode="RGB") # luis comentado
             return {"path": None, "bytes": image_to_bytes(image)}
-        elif isinstance(value, PIL.Image.Image):
+        elif isinstance(value, PIL.Image.Image):   #luis
             # convert the PIL image to bytes (default format is png)
-            return encode_pil_image(value)
+            return encode_pil_image(value)         #luis
         elif value.get("path") is not None and os.path.isfile(value["path"]):
             # we set "bytes": None to not duplicate the data if they're already available locally
             return {"bytes": None, "path": value.get("path")}
