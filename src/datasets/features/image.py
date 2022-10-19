@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from .features import FeatureType
 
 
-_IMAGE_COMPRESSION_FORMATS: Optional[List[str]] = None
+_IMAGE_COMPRESSION_FORMATS: Optional[List[str]] = "TIFF"  #luis
 
 
 @dataclass
@@ -60,8 +60,8 @@ class Image:
     decode: bool = True
     id: Optional[str] = None
     # Automatically constructed
-    #dtype: ClassVar[str] = "PIL.Image.Image"
-    dtype: ClassVar[str] = "np.ndarray" #Luis
+    dtype: ClassVar[str] = "PIL.Image.Image"
+    #dtype: ClassVar[str] = "np.ndarray" #Luis
     pa_type: ClassVar[Any] = pa.struct({"bytes": pa.binary(), "path": pa.string()})
     _type: str = field(default="Image", init=False, repr=False)
 
@@ -81,7 +81,7 @@ class Image:
             import PIL.Image
         else:
             raise ImportError("To support encoding images, please install 'Pillow'.")
-
+        
         if isinstance(value, list): #if value is type list -> TRUE
             value = np.array(value)
 
@@ -91,9 +91,9 @@ class Image:
             # convert the image array to png bytes
             image = PIL.Image.fromarray(value.astype(np.float64),mode="RGB") # luis comentado
             return {"path": None, "bytes": image_to_bytes(image)}
-        elif isinstance(value, PIL.Image.Image):   #luis
+        elif isinstance(value, PIL.Image.Image):  
             # convert the PIL image to bytes (default format is png)
-            return encode_pil_image(value)         #luis
+            return encode_pil_image(value)
         elif value.get("path") is not None and os.path.isfile(value["path"]):
             # we set "bytes": None to not duplicate the data if they're already available locally
             return {"bytes": None, "path": value.get("path")}
